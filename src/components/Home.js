@@ -111,16 +111,10 @@ export default function Home() {
     <div className="bg-[#171717] h-screen select-none">
       <div className="flex items-start py-10 justify-center h-screen">
         <div>
-          <div
-            className="text-4xl md:text-5xl lg:text-6xl"
-            style={{
-              background: "linear-gradient(to right, #fc42b6, #3e91f1)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-            }}
-          >
+          <h1 class="bg-gradient-to-r from-[#fc42b6] to-[#3e91f1] inline-block text-transparent bg-clip-text text-4xl md:text-5xl lg:text-6xl">
             Todo App
-          </div>
+          </h1>
+
           {/* Input */}
           <div className="bg-[#2e2e2e] px-3 py-1 rounded-md my-10">
             <div className="flex items-center justify-between">
