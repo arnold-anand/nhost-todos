@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { NhostProvider } from "@nhost/react";
 import { nhost } from "../lib/nhost";
 
 const getTodos = `
@@ -14,8 +13,8 @@ query {
 `;
 
 const insertTodo = `
-mutation InsertTodo($name: String!) {
-  insert_todos(objects: {name: $name}) {
+mutation InsertTodo($name: String!, $user_id: uuid!) {
+  insert_todos(objects: { name: $name, user_id: $user_id }) {
     returning {
       id
       name
@@ -43,7 +42,7 @@ mutation DeleteTodo($id: uuid!) {
 }
 `;
 
-export default function Home() {
+export default function Home({ session }) {
   const [loading, setLoading] = useState(true);
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState("");
@@ -73,7 +72,7 @@ export default function Home() {
   };
 
   const handleAddTodo = async () => {
-    const variables = { name: newTodo };
+    const variables = { name: newTodo, user_id: session.user.id };
     const { data, error } = await nhost.graphql.request(insertTodo, variables);
     if (data) {
       setTodos([...todos, ...data.insert_todos.returning]);
@@ -109,12 +108,34 @@ export default function Home() {
 
   return (
     <div className="bg-[#171717] h-screen select-none">
+      <div className="absolute right-3 bottom-3">
+        <button
+          className="flex items-center"
+          onClick={() => nhost.auth.signOut()}
+        >
+          {" "}
+          <span className="text-white">Logout</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-8 h-8 text-white"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75"
+            />
+          </svg>
+        </button>
+      </div>
       <div className="flex items-start py-10 justify-center h-screen">
         <div>
           <h1 class="bg-gradient-to-r from-[#fc42b6] to-[#3e91f1] inline-block text-transparent bg-clip-text text-4xl md:text-5xl lg:text-6xl">
             Todo App
           </h1>
-
           {/* Input */}
           <div className="bg-[#2e2e2e] px-3 py-1 rounded-md my-10">
             <div className="flex items-center justify-between">
