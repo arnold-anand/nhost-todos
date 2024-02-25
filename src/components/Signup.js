@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { nhost } from "../lib/nhost";
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleSignup = async (event) => {
     event.preventDefault();
@@ -13,9 +15,9 @@ export default function Signup() {
         password: password,
       });
       // Display alert upon successful signup
-      window.alert("Account created successfully!");
+      window.alert("Account created successfully! You're now logged in");
       // Redirect to sign-in page
-      <Navigate to="/signin" replace={true} />;
+      navigate("/");
     } catch (error) {
       console.error("Failed to sign up", error);
     }
