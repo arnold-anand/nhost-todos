@@ -108,7 +108,7 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-[#171717] h-screen">
+    <div className="bg-[#171717] h-screen select-none">
       <div className="flex items-start py-10 justify-center h-screen">
         <div>
           <div
@@ -136,7 +136,10 @@ export default function Home() {
               <div>
                 <button
                   onClick={handleAddTodo}
-                  className="text-white bg-[#151515] px-6 py-3 rounded-md"
+                  className={`text-white bg-[#151515] px-6 py-3 rounded-md ${
+                    newTodo.trim() === "" ? "cursor-not-allowed opacity-50" : ""
+                  }`}
+                  disabled={newTodo.trim() === ""}
                 >
                   Add
                 </button>
@@ -151,18 +154,49 @@ export default function Home() {
             >
               <div className="flex items-center space-x-7">
                 <div>
-                  <input
-                    type="checkbox"
-                    name=""
-                    id=""
-                    checked={todo.completed}
-                    onChange={() => handleToggleTodo(todo.id, todo.completed)}
-                  />
+                  {todo.completed ? (
+                    // Render completion SVG
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-6 h-6 cursor-pointer text-emerald-600"
+                      onClick={() => handleToggleTodo(todo.id, todo.completed)}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                      />
+                    </svg>
+                  ) : (
+                    // Render white circle SVG
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-6 h-6 cursor-pointer text-white"
+                      onClick={() => handleToggleTodo(todo.id, todo.completed)}
+                    >
+                      <circle
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        fill=""
+                        stroke="currentColor"
+                      />
+                    </svg>
+                  )}
                 </div>
                 <div
                   className={`text-lg ${
                     todo.completed ? "line-through" : ""
-                  } text-white capitalize`}
+                  } text-white capitalize cursor-pointer`}
+                  onClick={() => handleToggleTodo(todo.id, todo.completed)}
                 >
                   {todo.name}
                 </div>
@@ -176,7 +210,7 @@ export default function Home() {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-6 h-6 text-red-600"
+                    className="w-6 h-6 text-red-600 cursor-pointer"
                   >
                     <path
                       strokeLinecap="round"
