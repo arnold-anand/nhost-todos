@@ -112,11 +112,11 @@ export default function Home() {
       <div className="flex items-start py-10 justify-center h-screen">
         <div>
           <div
+            className="text-4xl md:text-5xl lg:text-6xl"
             style={{
               background: "linear-gradient(to right, #fc42b6, #3e91f1)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
-              fontSize: "2rem",
             }}
           >
             Todo App
