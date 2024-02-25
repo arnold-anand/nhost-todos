@@ -108,6 +108,7 @@ function Home() {
 
   return (
     <div>
+      <h1>TODO APPLICATION</h1>
       <input value={newTodo} onChange={handleNewTodoChange} />
       <button onClick={handleAddTodo}>Add Todo</button>
       {loading ? (
