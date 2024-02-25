@@ -116,17 +116,17 @@ export default function Home() {
               background: "linear-gradient(to right, #fc42b6, #3e91f1)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
-              fontSize: "4rem",
+              fontSize: "2rem",
             }}
           >
             Todo App
           </div>
           {/* Input */}
-          <div className="bg-[#2e2e2e] px-7 py-1 rounded-md my-10">
+          <div className="bg-[#2e2e2e] px-3 py-1 rounded-md my-10">
             <div className="flex items-center justify-between">
               <div>
                 <input
-                  className="h-12 w-96 text-xl bg-[#2e2e2e] outline-none text-white"
+                  className="h-12 w-44 md:w-72 lg:w-96 text-xl bg-[#2e2e2e] outline-none text-white"
                   type="text"
                   placeholder="Task name"
                   value={newTodo}
@@ -150,12 +150,11 @@ export default function Home() {
           {todos.map((todo) => (
             <div
               key={todo.id}
-              className="flex items-center justify-between w-full mt-4"
+              className="flex items-center justify-between w-full mt-4 px-3"
             >
               <div className="flex items-center space-x-7">
                 <div>
                   {todo.completed ? (
-                    // Render completion SVG
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
